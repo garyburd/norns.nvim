@@ -1,0 +1,60 @@
+*norns.txt* A plugin for working with monome norns.
+
+The norns plugin connects to matron running on a norns device. The plugin
+appends output from matron to a buffer.
+
+================================================================================
+SETUP                                                               *norns-setup*
+
+Configure the plugin with the setup function. The configuration below shows
+the defaults:
+>
+    require('norns').setup{
+        host = 'norns.local.',
+        open = { cmd = 'new', range={10}},
+        dust = nil,
+    }
+<
+The configuration keys are:
+
+    host ~
+        Specifies the device's host name or IP address.
+    open: ~
+        Command to use when opening a window. See |nvim_parse_cmd()| for the
+        structure of the key's value.
+    dust: ~
+        Path of the local dust directory or function that returns the local
+        dust directory. Used to map remote errors to local
+        files.
+
+
+================================================================================
+COMMANDS                                                        *norns-commands*
+
+The plugin commands ensure that a window is open to the matron output unless
+suppressed by the command bang attribute.
+
+:Norns connect 
+
+    Connect to device.
+
+:Norns close
+
+    Close connection to the device.
+
+:Norns exec {code}
+
+    Execute {code} on the device.
+
+:Norns load {path}
+
+    Load script at remote path. If path is not given, then use the last path
+    loaded. Paths are relative to /home/we/dust.
+
+:Norns quickfix
+
+    Create quick fix list from the device output. Remote file paths are mapped
+    to local file paths using the configuration dust key.
+
+
+vim:tw=78:ts=8:ft=help:norl:
